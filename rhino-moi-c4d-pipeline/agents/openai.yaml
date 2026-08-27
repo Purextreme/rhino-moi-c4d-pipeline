@@ -1,0 +1,4 @@
+interface:
+  display_name: "Rhino MoI C4D Pipeline"
+  short_description: "Rebuild C4D hierarchy through Rhino and MoI"
+  default_prompt: "Use $rhino-moi-c4d-pipeline to process the open Rhino model through MoI and rebuild its C4D hierarchy."
