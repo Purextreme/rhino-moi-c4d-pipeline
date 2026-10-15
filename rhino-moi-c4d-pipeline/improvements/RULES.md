@@ -4,7 +4,9 @@ This directory is a review queue for reusable experience observed during real Rh
 
 ## Recording workflow
 
+- Create persistent candidates only when the user requests experience capture or Skill maintenance, or otherwise explicitly authorizes those notes. Ordinary model handoffs do not require a candidate file.
 - Record only behavior observed in a real run with concrete evidence such as an error, warning, command, probe, or generated artifact.
+- Extract a rule or procedure that applies across models. Keep product names, case counts, measured tolerances, occurrence IDs, and model-specific mappings out of the Skill and its candidates. Do not generalize an observed API behavior beyond its verified conditions or version.
 - Record only after the main task is safe and verified. Logging must not interrupt recovery or delay delivery.
 - Before recording, read only this file. Do not list, search, or read existing files under `pending/`; duplicate detection belongs to maintainer review.
 - Create exactly one new Markdown file per candidate. Do not append to or rewrite another entry.

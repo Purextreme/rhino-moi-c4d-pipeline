@@ -22,7 +22,7 @@ Read [references/workflow.md](references/workflow.md) before operating the appli
 
 - Require exactly one Rhino process and identify the active Rhino document before any export.
 - Export metadata before any optional block explosion. Never decide from the viewport alone whether `ExplodeBlock` is needed.
-- Do not modify or overwrite the active Rhino source. Create a Rhino 5 copy and use ASCII-only staging paths when MoI cannot reliably open the original path.
+- Do not modify or overwrite the active Rhino source. Export the same in-memory state as the metadata, preserve its original identity and modified state, and prepare any Block expansion in a separate copy. Read [references/rhino-working-copy.md](references/rhino-working-copy.md) when preparing that copy.
 - Treat ASCII staging as temporary. After verification, consolidate the Rhino 5 and FBX artifacts into a source-side `codex_export_fbx` folder, verify collisions by hash, and remove the empty staging directory.
 - Do not use C4D `obj*` names or object order as identity.
 - Re-probe every model. Axis mapping, object counts, matching thresholds, and hierarchy mode are evidence, not constants inherited from a prior run.
@@ -30,15 +30,15 @@ Read [references/workflow.md](references/workflow.md) before operating the appli
 - Protect C4D mutations with the Remote Executor backup and an Undo transaction.
 - If a C4D script fails after its first side effect, treat completion as unknown. Do not retry until a read-only probe establishes the actual document state.
 - Stop before mutation on unresolved count differences, ambiguous assignments, excessive BBox error, missing Normal tags, or a changed active document.
-- Treat success as requiring bridge `ok`, script `execution_ok`, script `verification_ok`, assertions where practical, and a separate read-only verification pass.
+- Treat success as requiring both bridge and script success: inspect top-level `ok`, `execution_ok`, and `verification_ok`, plus `result.execution_ok` and `result.verification_ok`. Require assertions where practical and a separate read-only verification pass; a zero client exit code alone is insufficient.
 
 ## Improvement queue
 
-After a real pipeline run is safe and verified, record a newly observed reusable lesson as one new Markdown candidate under `improvements/pending/`. Record only behavior supported by a concrete error, warning, command, or run artifact.
+When the user requests experience capture or Skill maintenance, record or absorb only reusable lessons supported by a concrete error, warning, command, or verified artifact. Ordinary model handoffs do not require an experience file; respect the user's instructions about persistent records.
 
 Before recording, read only [improvements/RULES.md](improvements/RULES.md). Do not list, search, or read existing pending entries. Do not modify another candidate or promote a candidate into established instructions, references, or scripts unless the maintainer explicitly requests review or absorption.
 
-Experience logging must not interrupt recovery or delay the user's primary task. If the queue is unavailable or unwritable, report that fact after the task instead of redirecting the entry to an unrelated path.
+Experience logging must not interrupt recovery or delay the user's primary task. If requested recording is unavailable or unwritable, report that limitation instead of redirecting the entry to an unrelated path.
 
 ## Reconstruction modes
 
